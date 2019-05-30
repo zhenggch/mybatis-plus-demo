@@ -12,6 +12,10 @@
 
     <artifactId>mybatis-plus-sample-quickstart</artifactId>
 
+    <properties>
+        <mybatis-plus.version>3.1.1</mybatis-plus.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -30,7 +34,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.1.1</version>
+            <version>${mybatis-plus.version}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>

@@ -1,6 +1,7 @@
 package demo.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import demo.dto.UserDTO;
 import demo.entity.User;
 import demo.mapper.UserMapper;
 import demo.service.IUserService;
@@ -32,16 +33,30 @@ public class UserServiceImpl implements IUserService {
      * @date 2019/5/30
      */
     @Override
-    public Page<UserVO> getUserList(User user) {
+    public Page<UserVO> getUserList (UserDTO userDTO) {
         Page<UserVO> page = new Page<>();
-        page.setSize(user.getSize());
-        page.setCurrent(user.getCurrent());
+        page.setSize(userDTO.getSize());
+        page.setCurrent(userDTO.getCurrent());
         Map<String, Object> sqlMap = new HashMap<>(2);
         sqlMap.put("page", page);
-        sqlMap.put("name", user.getName());
-        sqlMap.put("age", user.getAge());
-        sqlMap.put("email", user.getEmail());
+        sqlMap.put("name", userDTO.getName());
+        sqlMap.put("age", userDTO.getAge());
+        sqlMap.put("email", userDTO.getEmail());
         return page.setRecords(userMapper.getUserList(sqlMap));
+    }
+
+    /**
+     * 查询正常用户
+     * 逻辑删除
+     *
+     * @return 正常用户信息
+     * @author zhenggc
+     * @date 2019/5/30
+     */
+    @Override
+    public List<User> getNormalUserList () {
+
+        return userMapper.selectList(null);
     }
 
     /**

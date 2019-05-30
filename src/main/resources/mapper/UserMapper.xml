@@ -8,6 +8,7 @@
         <result property="name" column="name" />
         <result property="age" column="age" />
         <result property="email" column="email" />
+        <result property="deletedFlag" column="is_deleted" />
     </resultMap>
 
     <resultMap id="UserVOMap" type="demo.vo.UserVO" />
@@ -39,7 +40,7 @@
         select
           <include refid="col"/>
         from user
-        where 1 = 1
+        where is_deleted = 0
         <if test="age != null">
             and age > #{age}
         </if>
@@ -50,7 +51,8 @@
       select
         <include refid="col"/>
       from user
-      where id in
+      where is_deleted = 0
+        and id in
         <foreach collection="list" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>

@@ -1,6 +1,7 @@
 package demo.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import demo.dto.UserDTO;
 import demo.entity.User;
 import demo.vo.UserVO;
 
@@ -17,12 +18,21 @@ public interface IUserService {
     /**
      * 查询所有用户
      *
-     * @param user 查询条件
+     * @param userDTO 查询条件
      * @return 所有用户信息
      * @author zhenggc
      * @date 2019/5/30
      */
-    Page<UserVO> getUserList(User user);
+    Page<UserVO> getUserList(UserDTO userDTO);
+
+    /**
+     * 查询正常用户
+     *
+     * @return 正常用户信息
+     * @author zhenggc
+     * @date 2019/5/30
+     */
+    List<User> getNormalUserList();
 
     /**
      * 查询所有年龄大于18岁的用户

@@ -1,6 +1,7 @@
 package demo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import demo.dto.UserDTO;
 import demo.entity.User;
 import demo.service.IUserService;
 import demo.vo.UserVO;
@@ -34,9 +35,22 @@ public class UserController {
      * @date 2019/5/30
      */
     @PostMapping
-    public Page<UserVO> getUserList(@RequestBody User user) {
+    public Page<UserVO> getUserList(@RequestBody UserDTO userDTO) {
 
-        return userService.getUserList(user);
+        return userService.getUserList(userDTO);
+    }
+
+    /**
+     * 查询正常的用户信息
+     *
+     * @return 正常用户信息
+     * @author zhenggc
+     * @date 2019/5/30
+     */
+    @GetMapping("/normal")
+    public List<User> getNormalUserList() {
+
+        return userService.getNormalUserList();
     }
 
     /**
