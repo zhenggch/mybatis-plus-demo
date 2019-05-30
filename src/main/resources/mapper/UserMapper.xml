@@ -14,7 +14,7 @@
 
     <!--通用查询结果列-->
     <sql id="col">
-        ID, NAME, AGE
+        id, name, age, email
     </sql>
 
     <!--查询所有用户信息-->
@@ -24,13 +24,13 @@
         from user
         where 1 = 1
         <if test="name != null">
-            and name > #{name}
+            and name like concat(concat('%', #{name}), '%')
         </if>
         <if test="age != null">
-            and age > #{age}
+            and age = #{age}
         </if>
         <if test="email != null">
-            and email > #{email}
+            and email like concat(concat('%', #{email}), '%')
         </if>
     </select>
 
