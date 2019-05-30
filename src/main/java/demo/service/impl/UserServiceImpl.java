@@ -1,12 +1,16 @@
 package demo.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import demo.entity.User;
 import demo.mapper.UserMapper;
 import demo.service.IUserService;
+import demo.vo.UserVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户服务接口实现
@@ -28,8 +32,16 @@ public class UserServiceImpl implements IUserService {
      * @date 2019/5/30
      */
     @Override
-    public List<User> getUserList() {
-        return userMapper.selectList(null);
+    public Page<UserVO> getUserList(User user) {
+        Page<UserVO> page = new Page<>();
+        page.setSize(user.getSize());
+        page.setCurrent(user.getCurrent());
+        Map<String, Object> sqlMap = new HashMap<>(2);
+        sqlMap.put("page", page);
+        sqlMap.put("name", user.getName());
+        sqlMap.put("age", user.getAge());
+        sqlMap.put("email", user.getEmail());
+        return page.setRecords(userMapper.getUserList(sqlMap));
     }
 
     /**
@@ -40,20 +52,23 @@ public class UserServiceImpl implements IUserService {
      * @date 2019/5/30
      */
     @Override
-    public List<User> getUserOver18() {
-        System.out.println("success");
-        return userMapper.getUserOver18();
+    public List<UserVO> getUserOverAge (Integer age) {
+        Map<String, Object> sqlMap = new HashMap<>(2);
+        sqlMap.put("age", age);
+        return userMapper.getUserOverAge(sqlMap);
     }
 
     /**
-     * 查询所有用户
+     * 查询指定用户
      *
-     * @return 所有用户信息
+     * @return 指定用户信息
      * @author zhenggc
      * @date 2019/5/30
      */
     @Override
-    public List<User> getAllUser() {
-        return userMapper.getAllUser();
+    public List<UserVO> getUserByIdList(List<Integer> userIdList) {
+        Map<String, Object> sqlMap = new HashMap<>(2);
+        sqlMap.put("list", userIdList);
+        return userMapper.getUserByIdList(sqlMap);
     }
 }

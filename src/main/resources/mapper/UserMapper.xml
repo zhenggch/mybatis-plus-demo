@@ -10,21 +10,49 @@
         <result property="email" column="email" />
     </resultMap>
 
+    <resultMap id="UserVOMap" type="demo.vo.UserVO" />
+
     <!--通用查询结果列-->
     <sql id="col">
         ID, NAME, AGE
     </sql>
 
-    <!--查询年龄大于18岁的用户-->
-    <select id="getUserOver18" resultMap="BaseResultMap">
-        select <include refid="col"/>
+    <!--查询所有用户信息-->
+    <select id="getUserList" resultMap="UserVOMap">
+        select
+          <include refid="col"/>
         from user
-        where age > 18
+        where 1 = 1
+        <if test="name != null">
+            and name > #{name}
+        </if>
+        <if test="age != null">
+            and age > #{age}
+        </if>
+        <if test="email != null">
+            and email > #{email}
+        </if>
     </select>
 
-    <!--查询所有用户-->
-    <select id="getAllUser" resultMap="BaseResultMap">
-      select <include refid="col"/>
+    <!--查询年龄大于18岁的用户-->
+    <select id="getUserOverAge" resultMap="UserVOMap">
+        select
+          <include refid="col"/>
+        from user
+        where 1 = 1
+        <if test="age != null">
+            and age > #{age}
+        </if>
+    </select>
+
+    <!--查询指定用户信息-->
+    <select id="getUserByIdList" resultMap="UserVOMap">
+      select
+        <include refid="col"/>
       from user
+      where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </select>
 </mapper>

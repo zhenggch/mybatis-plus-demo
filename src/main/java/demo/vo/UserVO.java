@@ -1,18 +1,15 @@
-package demo.entity;
+package demo.vo;
 
-import demo.util.Page;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
- * 用户实体
+ * 用户VO
  *
  * @author zhenggc
  * @date 2019/5/30
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class User extends Page {
+public class UserVO {
     /**
      * 用户ID
      */
