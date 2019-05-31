@@ -53,4 +53,14 @@ public interface IUserService {
      * @date 2019/5/30
      */
     List<UserVO> getUserByIdList(List<Integer> userIdList);
+
+    /**
+     * 新增用户信息
+     *
+     * @param userDTO 用户信息
+     * @return 用户信息
+     * @author zhenggc
+     * @date 2019/5/30
+     */
+    User saveUser(UserDTO userDTO);
 }

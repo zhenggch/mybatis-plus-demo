@@ -34,7 +34,7 @@ public class UserController {
      * @author zhenggc
      * @date 2019/5/30
      */
-    @PostMapping
+    @PostMapping("/all")
     public Page<UserVO> getUserList(@RequestBody UserDTO userDTO) {
 
         return userService.getUserList(userDTO);
@@ -76,5 +76,17 @@ public class UserController {
     @PostMapping("/list")
     public List<UserVO> getUserByIdList(@RequestBody List<Integer> userIdList) {
         return userService.getUserByIdList(userIdList);
+    }
+
+    /**
+     * 新增用户信息
+     *
+     * @return 用户信息
+     * @author zhenggc
+     * @date 2019/5/30
+     */
+    @PostMapping
+    public User saveUser(@RequestBody UserDTO userDTO) {
+        return userService.saveUser(userDTO);
     }
 }

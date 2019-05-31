@@ -1,12 +1,9 @@
 package demo.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import demo.util.Page;
+import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import javax.persistence.Id;
 
 /**
  * 用户实体
@@ -14,32 +11,34 @@ import javax.persistence.Id;
  * @author zhenggc
  * @date 2019/5/30
  */
+@EqualsAndHashCode(callSuper = true)
+@TableName("USER")
 @Data
-public class User {
+public class User extends Model<User> {
     /**
      * 用户ID
      */
-    @Id
-    private Long id;
+    @TableId(value = "ID",type = IdType.AUTO)
+    private Integer id;
     /**
      * 用户名
      */
-    @TableField("name")
+    @TableField("NAME")
     private String name;
     /**
      * 年龄
      */
-    @TableField("age")
+    @TableField("AGE")
     private Integer age;
     /**
      * email地址
      */
-    @TableField("email")
+    @TableField("EMAIL")
     private String email;
     /**
      * 是否删除
      */
     @TableLogic
-    @TableField("is_deleted")
+    @TableField(value = "IS_DELETED", fill = FieldFill.INSERT)
     private String deletedFlag;
 }

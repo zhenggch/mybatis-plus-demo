@@ -19,7 +19,7 @@ public class UserDTO extends Page {
     /**
      * 用户ID
      */
-    private Long id;
+    private Integer id;
     /**
      * 用户名
      */
@@ -32,8 +32,4 @@ public class UserDTO extends Page {
      * email地址
      */
     private String email;
-    /**
-     * 是否删除
-     */
-    private String deletedFlag;
 }

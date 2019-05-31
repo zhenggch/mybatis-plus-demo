@@ -86,4 +86,23 @@ public class UserServiceImpl implements IUserService {
         sqlMap.put("list", userIdList);
         return userMapper.getUserByIdList(sqlMap);
     }
+
+    /**
+     * 新增用户信息
+     *
+     * @param userDTO 用户信息
+     * @return 用户信息
+     * @author zhenggc
+     * @date 2019/5/30
+     */
+    @Override
+    public User saveUser(UserDTO userDTO) {
+        User user = new User();
+        user.setId(userDTO.getId());
+        user.setName(userDTO.getName());
+        user.setAge(userDTO.getAge());
+        user.setEmail(userDTO.getEmail());
+        userMapper.insert(user);
+        return user;
+    }
 }
