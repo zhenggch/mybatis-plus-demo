@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
+
 /**
  * 用户实体
  *
@@ -41,4 +43,24 @@ public class User extends Model<User> {
     @TableLogic
     @TableField(value = "IS_DELETED", fill = FieldFill.INSERT)
     private String deletedFlag;
+    /**
+     * 创建人
+     */
+    @TableField(value = "CREATE_ID", fill = FieldFill.INSERT)
+    private Integer createId;
+    /**
+     * 创建时间
+     */
+    @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    /**
+     * 修改人
+     */
+    @TableField(value = "UPDATE_ID", fill = FieldFill.INSERT_UPDATE)
+    private Integer updateId;
+    /**
+     * 修改时间
+     */
+    @TableField(value = "UPDATE_TIME", fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 }
