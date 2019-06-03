@@ -1,6 +1,8 @@
 package demo.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import demo.dto.UserDTO;
 import demo.entity.User;
 import demo.mapper.UserMapper;
@@ -20,10 +22,12 @@ import java.util.Map;
  * @date 2019/5/30
  */
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private IUserService userService;
 
     /**
      * 查询所有用户
@@ -104,5 +108,11 @@ public class UserServiceImpl implements IUserService {
         user.setEmail(userDTO.getEmail());
         userMapper.insert(user);
         return user;
+    }
+
+    @Override
+    public void deleteUser(List<Integer> idList) {
+        int result = userMapper.delete(new QueryWrapper<User>().lambda().in(User::getId, idList));
+        System.out.println(result);
     }
 }

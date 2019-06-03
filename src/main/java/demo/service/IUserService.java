@@ -1,6 +1,7 @@
 package demo.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import demo.dto.UserDTO;
 import demo.entity.User;
 import demo.vo.UserVO;
@@ -13,7 +14,7 @@ import java.util.List;
  * @author zhenggc
  * @date 2019/5/30
  */
-public interface IUserService {
+public interface IUserService extends IService<User> {
 
     /**
      * 查询所有用户
@@ -63,4 +64,14 @@ public interface IUserService {
      * @date 2019/5/30
      */
     User saveUser(UserDTO userDTO);
+
+    /**
+     * 删除用户信息
+     *
+     * @param idList 用户ID集合
+     * @return 用户信息
+     * @author zhenggc
+     * @date 2019/5/30
+     */
+    void deleteUser(List<Integer> idList);
 }

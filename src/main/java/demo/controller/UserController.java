@@ -89,4 +89,15 @@ public class UserController {
     public User saveUser(@RequestBody UserDTO userDTO) {
         return userService.saveUser(userDTO);
     }
+
+    /**
+     * 删除用户信息
+     *
+     * @author zhenggc
+     * @date 2019/5/30
+     */
+    @PutMapping
+    public void saveUser(@RequestBody List<Integer> idList) {
+        userService.deleteUser(idList);
+    }
 }
