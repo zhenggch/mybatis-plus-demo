@@ -59,7 +59,7 @@ public class User extends Model<User> {
     @TableField(value = "UPDATE_ID", fill = FieldFill.INSERT_UPDATE)
     private Integer updateId;
     /**
-     * 修改时间
+     * 修改时间Test
      */
     @TableField(value = "UPDATE_TIME", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
