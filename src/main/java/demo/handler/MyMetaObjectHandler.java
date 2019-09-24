@@ -22,17 +22,17 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         LOGGER.info("start insert fill ....");
-        metaObject.setValue("deletedFlag","0");
-        metaObject.setValue("createId",1);
+        metaObject.setValue("deletedFlag", "0");
+        metaObject.setValue("createId", 1);
         metaObject.setValue("createTime", LocalDateTime.now());
-        metaObject.setValue("updateId",1);
+        metaObject.setValue("updateId", 1);
         metaObject.setValue("updateTime", LocalDateTime.now());
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
         LOGGER.info("start update fill ....");
-        metaObject.setValue("updateId",9);
+        metaObject.setValue("updateId", 9);
         metaObject.setValue("updateTime", LocalDateTime.now());
     }
 }

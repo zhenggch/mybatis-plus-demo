@@ -8,9 +8,11 @@ import demo.entity.User;
 import demo.mapper.UserMapper;
 import demo.service.IUserService;
 import demo.vo.UserVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,14 +32,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private IUserService userService;
 
     /**
-     * 查询所有用户
+     * 分页查询所有用户
      *
      * @return 所有用户信息
      * @author zhenggc
      * @date 2019/5/30
      */
     @Override
-    public Page<UserVO> getUserList (UserDTO userDTO) {
+    public Page<UserVO> getUserListPage(UserDTO userDTO) {
         Page<UserVO> page = new Page<>();
         page.setSize(userDTO.getSize());
         page.setCurrent(userDTO.getCurrent());
@@ -46,7 +48,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         sqlMap.put("name", userDTO.getName());
         sqlMap.put("age", userDTO.getAge());
         sqlMap.put("email", userDTO.getEmail());
-        return page.setRecords(userMapper.getUserList(sqlMap));
+        return page.setRecords(userMapper.getUserListPage(sqlMap));
+    }
+
+    /**
+     * 查询所有用户
+     *
+     * @return 所有用户信息
+     * @author zhenggc
+     * @date 2019/5/30
+     */
+    @Override
+    public List<UserVO> getUserList(UserDTO userDTO) {
+        Map<String, Object> sqlMap = new HashMap<>(2);
+        sqlMap.put("name", userDTO.getName());
+        sqlMap.put("age", userDTO.getAge());
+        sqlMap.put("email", userDTO.getEmail());
+        return userMapper.getUserList(sqlMap);
     }
 
     /**
@@ -58,7 +76,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @date 2019/5/30
      */
     @Override
-    public List<User> getNormalUserList () {
+    public List<User> getNormalUserList() {
 
         return userMapper.selectList(null);
     }
@@ -71,7 +89,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @date 2019/5/30
      */
     @Override
-    public List<UserVO> getUserOverAge (Integer age) {
+    public List<UserVO> getUserOverAge(Integer age) {
         Map<String, Object> sqlMap = new HashMap<>(2);
         sqlMap.put("age", age);
         return userMapper.getUserOverAge(sqlMap);
@@ -100,7 +118,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @date 2019/5/30
      */
     @Override
-    public User saveUser(UserDTO userDTO) {
+    public User addUser(UserDTO userDTO) {
         User user = new User();
         user.setId(userDTO.getId());
         user.setName(userDTO.getName());
@@ -114,5 +132,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public void deleteUser(List<Integer> idList) {
         int result = userMapper.delete(new QueryWrapper<User>().lambda().in(User::getId, idList));
         System.out.println(result);
+    }
+
+
+    /**
+     * 保存用户信息
+     *
+     * @param userDTO 用户信息
+     * @return 用户信息
+     * @author zhenggc
+     * @date 2019/5/30
+     */
+    @Override
+    public User saveUser(UserDTO userDTO) {
+        User user = new User();
+        BeanUtils.copyProperties(userDTO, user);
+        saveOrUpdate(user);
+        return user;
     }
 }
