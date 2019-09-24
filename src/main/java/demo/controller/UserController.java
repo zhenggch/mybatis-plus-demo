@@ -34,8 +34,21 @@ public class UserController {
      * @author zhenggc
      * @date 2019/5/30
      */
+    @PostMapping("/all/page")
+    public Page<UserVO> getUserListPage(@RequestBody UserDTO userDTO) {
+
+        return userService.getUserListPage(userDTO);
+    }
+
+    /**
+     * 查询所有用户信息
+     *
+     * @return 所有用户信息
+     * @author zhenggc
+     * @date 2019/5/30
+     */
     @PostMapping("/all")
-    public Page<UserVO> getUserList(@RequestBody UserDTO userDTO) {
+    public List<UserVO> getUserList(@RequestBody UserDTO userDTO) {
 
         return userService.getUserList(userDTO);
     }
@@ -61,8 +74,7 @@ public class UserController {
      * @date 2019/5/30
      */
     @GetMapping("/over/{age}")
-    public List<UserVO> getUserOverAge(@PathVariable Integer age)
-    {
+    public List<UserVO> getUserOverAge(@PathVariable Integer age) {
         return userService.getUserOverAge(age);
     }
 
@@ -86,8 +98,8 @@ public class UserController {
      * @date 2019/5/30
      */
     @PostMapping
-    public User saveUser(@RequestBody UserDTO userDTO) {
-        return userService.saveUser(userDTO);
+    public User addUser(@RequestBody UserDTO userDTO) {
+        return userService.addUser(userDTO);
     }
 
     /**
@@ -96,8 +108,19 @@ public class UserController {
      * @author zhenggc
      * @date 2019/5/30
      */
-    @PutMapping
-    public void saveUser(@RequestBody List<Integer> idList) {
+    @DeleteMapping
+    public void deleteUser(@RequestBody List<Integer> idList) {
         userService.deleteUser(idList);
+    }
+
+    /**
+     * 新增或修改用户信息
+     *
+     * @author zhenggc
+     * @date 2019/8/26
+     */
+    @PostMapping("/save")
+    public void saveUser(@RequestBody UserDTO userDTO) {
+        userService.saveUser(userDTO);
     }
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 用户实体
@@ -20,7 +21,7 @@ public class User extends Model<User> {
     /**
      * 用户ID
      */
-    @TableId(value = "ID",type = IdType.AUTO)
+    @TableId(value = "ID", type = IdType.AUTO)
     private Integer id;
     /**
      * 用户名
@@ -52,15 +53,15 @@ public class User extends Model<User> {
      * 创建时间
      */
     @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
+    private Date createTime;
     /**
      * 修改人
      */
     @TableField(value = "UPDATE_ID", fill = FieldFill.INSERT_UPDATE)
     private Integer updateId;
     /**
-     * 修改时间
+     * 修改时间Test
      */
     @TableField(value = "UPDATE_TIME", fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
+    private Date updateTime;
 }

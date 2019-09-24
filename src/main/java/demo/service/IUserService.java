@@ -17,6 +17,16 @@ import java.util.List;
 public interface IUserService extends IService<User> {
 
     /**
+     * 分页查询所有用户
+     *
+     * @param userDTO 查询条件
+     * @return 所有用户信息
+     * @author zhenggc
+     * @date 2019/5/30
+     */
+    Page<UserVO> getUserListPage(UserDTO userDTO);
+
+    /**
      * 查询所有用户
      *
      * @param userDTO 查询条件
@@ -24,7 +34,7 @@ public interface IUserService extends IService<User> {
      * @author zhenggc
      * @date 2019/5/30
      */
-    Page<UserVO> getUserList(UserDTO userDTO);
+    List<UserVO> getUserList(UserDTO userDTO);
 
     /**
      * 查询正常用户
@@ -63,7 +73,7 @@ public interface IUserService extends IService<User> {
      * @author zhenggc
      * @date 2019/5/30
      */
-    User saveUser(UserDTO userDTO);
+    User addUser(UserDTO userDTO);
 
     /**
      * 删除用户信息
@@ -74,4 +84,14 @@ public interface IUserService extends IService<User> {
      * @date 2019/5/30
      */
     void deleteUser(List<Integer> idList);
+
+    /**
+     * 新增用户信息
+     *
+     * @param userDTO 用户信息
+     * @return 用户信息
+     * @author zhenggc
+     * @date 2019/5/30
+     */
+    User saveUser(UserDTO userDTO);
 }
