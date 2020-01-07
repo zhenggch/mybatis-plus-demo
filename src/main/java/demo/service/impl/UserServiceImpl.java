@@ -12,7 +12,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +48,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         sqlMap.put("age", userDTO.getAge());
         sqlMap.put("email", userDTO.getEmail());
         return page.setRecords(userMapper.getUserListPage(sqlMap));
+    }
+    /**
+     * 分页查询所有用户
+     *
+     * @return 所有用户信息
+     * @author zhenggc
+     * @date 2019/5/30
+     */
+    @Override
+    public Page getUserVoListPage(UserDTO userDTO) {
+        Page<User> page = new Page<>();
+        page.setSize(userDTO.getSize());
+        page.setCurrent(userDTO.getCurrent());
+        List<User> userList = userMapper.selectPage(page,
+                new QueryWrapper<User>().lambda()
+                        .eq(User::getName, userDTO.getName())
+                        .eq(User::getAge, userDTO.getAge())
+                        .eq(User::getEmail, userDTO.getEmail())
+        ).getRecords();
+        return page.setRecords(userList);
     }
 
     /**

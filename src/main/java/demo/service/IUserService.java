@@ -27,6 +27,16 @@ public interface IUserService extends IService<User> {
     Page<UserVO> getUserListPage(UserDTO userDTO);
 
     /**
+     * 分页查询所有用户
+     *
+     * @param userDTO 查询条件
+     * @return 所有用户信息
+     * @author zhenggc
+     * @date 2019/5/30
+     */
+    Page getUserVoListPage(UserDTO userDTO);
+
+    /**
      * 查询所有用户
      *
      * @param userDTO 查询条件
